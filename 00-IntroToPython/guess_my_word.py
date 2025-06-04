@@ -1,4 +1,49 @@
-print("Guess My Word")
+import random
 
-secret_word = "dog"
-print(secret_word)
+# Didn't work on my Mac!
+# import nltk
+# from nltk.corpus import words
+# nltk.download('words')
+
+def update_display_word(dw, sw, g):
+    new_display_word = ""
+    for k in range(len(sw)):
+        if g == sw[k]:
+            new_display_word += g
+        else:
+            new_display_word += dw[k]
+    return new_display_word
+
+def main():
+    print("Guess My Word")
+
+    # Randomly select a secret word
+    word_options = ["pencil", "mouse", "human", "computer", "catapult", "winston"]
+    secret_word = random.choice(word_options)
+
+    # english_words = [word.lower() for word in words.words() if word.isalpha() and len(word) >= 5 and len(word) <= 8]
+    # secret_word = random.choice(english_words)
+
+
+    # print(secret_word)  # TODO: Don't show the answer!
+    word_length = len(secret_word)
+    display_word = "*" * word_length
+    print(display_word)
+
+    guessed_letters = []
+    while True:
+        guess = input("Guess a letter: ")
+        if len(guess) != 1:
+            print("Please guess 1 letter only")
+            continue
+        if guess in guessed_letters:
+            print("You already guessed ", guess, " Try again.")
+            continue
+        guessed_letters.append(guess)
+        display_word = update_display_word(display_word, secret_word, guess)
+        print(display_word)
+        if display_word == secret_word:
+            print("You got it!")
+            break
+
+main()
