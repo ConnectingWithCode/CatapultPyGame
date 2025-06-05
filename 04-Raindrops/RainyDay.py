@@ -67,8 +67,9 @@ class Hero:
 
     def hit_by(self, raindrop):
         """ Returns true if the given raindrop is hitting this Hero, otherwise false. """
-        # TODO 19: Return True if this Hero is currently colliding with the given Raindrop.
-        pass
+        # Done 19: Return True if this Hero is currently colliding with the given Raindrop.
+        hit_box = pygame.Rect(self.x, self.y, self.image_no_umbrella.get_width(), self.image_no_umbrella.get_height())
+        return hit_box.collidepoint(raindrop.x, raindrop.y)
 
 
 class Cloud:
