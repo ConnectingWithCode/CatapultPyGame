@@ -11,7 +11,7 @@ def distance(point1, point2):
     # TODO 4: Return the actual distance between point 1 and point 2.
     #  Hint: you will need the math library for the sqrt function.
     #       distance = sqrt(   (delta x) ** 2 + (delta y) ** 2  )
-    return 0
+    return math.sqrt((point1_x - point2_x) ** 2 + (point1_y - point2_y) ** 2)
 
 
 def main():
@@ -32,13 +32,23 @@ def main():
     circle_border_width = 3
 
     message_text = ''
+    pygame.mixer.music.load('drums.wav')
 
     while True:
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                click_position = event.pos
+                distance_from_circle = distance(click_position, circle_center)
+                if distance_from_circle < circle_radius:
+                    message_text = 'Bullseye!'
+                    pygame.mixer.music.play(-1)
 
+                else:
+                    message_text = 'You missed!'
+                    pygame.mixer.music.stop()
             # TODO 2: For a MOUSEBUTTONDOWN event get the click position.
                 # TODO 3: Determine the distance between the click position and the circle_center using the distance
                 # TODO 3:   function and save the result into a variable called distance_from_circle
@@ -50,8 +60,13 @@ def main():
         screen.fill(pygame.Color("Black"))
 
         # TODO 1: Draw the circle using the screen, circle_color, circle_center, circle_radius, and circle_border_width
+        pygame.draw.circle(screen, circle_color, circle_center, circle_radius, circle_border_width)
 
         # TODO 6: Create a text image (render the text) based on the message_text with the color (122, 237, 201)
+        onscreen_message = font.render(message_text, True, (122, 237, 201))
+
+        # DONE 7: Draw (blit) the message to the user that says 'Bullseye!' or 'You missed!'
+        screen.blit(onscreen_message, (25, 375))
 
         screen.blit(instructions_image, (25, 25))
         # TODO 7: Draw (blit) the message to the user that says 'Bullseye!' or 'You missed!'
