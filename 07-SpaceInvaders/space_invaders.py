@@ -1,7 +1,8 @@
 import pygame
 import sys
 
-# TODO: when need import the fighter_missile_module
+# Done: when need import the fighter_missile_module
+import fighter_missile_module
 # TODO: when need import the enemy_fleet_module
 
 
@@ -13,7 +14,8 @@ def main():
 
     # TODO 9: Set    enemy_rows    to an initial value of 3.
     # TODO 10: Create an EnemyFleet object (called enemy_fleet) with the screen and enemy_rows
-    # TODO 1: Create a Fighter (called fighter)
+    # Done 1: Create a Fighter (called fighter)
+    fighter = fighter_missile_module.Fighter(screen)
 
     while True:
         clock.tick(60)
@@ -22,10 +24,19 @@ def main():
             if event.type == pygame.QUIT:
                 sys.exit()
 
+        # Done 3: If pygame.K_LEFT is pressed and move the fighter left 5 (i.e. -5)
+        # Done 4: If pygame.K_RIGHT is pressed and move the fighter right 5
+        # Done 2: Draw the fighter
+        # Doing something continually when a key is HELD DOWN
+        pressed_keys = pygame.key.get_pressed()
+        if pressed_keys[pygame.K_LEFT]:
+            fighter.move(-5)
+        if pressed_keys[pygame.K_RIGHT]:
+            fighter.move(5)
+
         screen.fill((0, 0, 0))
-        # TODO 3: If pygame.K_LEFT is pressed and move the fighter left 5 (i.e. -5)
-        # TODO 4: If pygame.K_RIGHT is pressed and move the fighter right 5
-        # TODO 2: Draw the fighter
+        fighter.draw()
+
 
         # TODO 11: Move the enemy_fleet
         # TODO 12: Draw the enemy_fleet
